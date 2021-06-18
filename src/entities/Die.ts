@@ -1,18 +1,18 @@
 export interface DieIF {
     id: number;
-    sides: string;
     owner: string;
+    sides: string;
     rolls: number[];
 }
 
 export default class Die implements DieIF {
 
     public id:number
-    public sides: string;
     public owner: string;
+    public sides: string;
     public rolls: number[];
 
-    constructor(sidesOrDie: string | DieIF, owner?: string, rolls?: number[], id?: number) {
+    constructor(sidesOrDie: DieIF | string, owner?: string, rolls?: number[], id?: number) {
         if (typeof sidesOrDie === 'string') {
             this.sides = sidesOrDie
             this.owner = owner || '';
