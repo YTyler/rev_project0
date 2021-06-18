@@ -2,7 +2,6 @@
     "compilerOptions": {
         "module": "CommonJS",
         "target": "ES2018",
-        "noImplicitAny": true,
         "outDir": "./dist",
         "moduleResolution": "Node",
     },
