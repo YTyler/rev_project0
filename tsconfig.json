@@ -7,8 +7,7 @@
         "moduleResolution": "Node",
     },
     "include": [
-        "./app/src/*.ts",
-        "./app/*.ts",
-        "./app/src/*/*.ts"
+        "./src/*.ts",
+        "./src/*/*.ts",
     ]
 }
