@@ -9,20 +9,20 @@ const params = {
             AttributeName: "id", 
             AttributeType: "N", 
         },
-        {   //Sort Key Type
-            AttributeName: "Owner",
-            AttributeType: "S",
-        },
+        // {   //Sort Key Type
+        //     AttributeName: "owner",
+        //     AttributeType: "S",
+        // },
     ],
     KeySchema: [
         {   //Partition Key
             AttributeName: "id",
             KeyType: "HASH",
         },
-        {   //Sort Key
-            AttributeName: "Owner",
-            KeyType: "RANGE",
-        },
+        // {   //Sort Key
+        //     AttributeName: "owner",
+        //     KeyType: "RANGE",
+        // },
     ],
     ProvisionedThroughput: {
         ReadCapacityUnits: 1,
