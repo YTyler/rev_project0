@@ -4,6 +4,7 @@
         "target": "ES2018",
         "outDir": "./dist",
         "moduleResolution": "Node",
+        "esModuleInterop": true,
     },
     "include": [
         "./src/*.ts",

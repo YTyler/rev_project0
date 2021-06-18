@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc"
   },
-  "type":"module",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/YTyler/rev_project0.git"
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/YTyler/rev_project0#readme",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.18.0",
+    "@aws-sdk/types": "^3.18.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
