@@ -9,7 +9,7 @@ export async function getAllDice(req: Request, res: Response) {
 }
 
 export async function getOneDie(req: Request, res: Response) {
-    const id = req.params.id
+    const id = req.params.id; 
     const die = await dieDao.getOne(id);
     return res.status(200).json({die});
 }

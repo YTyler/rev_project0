@@ -8,5 +8,5 @@ diceRouter.get('/:id', getOneDie)
 
 //baseRouter export
 const baseRouter = Router();
-baseRouter.use('/Dice', diceRouter);
+baseRouter.use('/dice', diceRouter);
 export default baseRouter;
