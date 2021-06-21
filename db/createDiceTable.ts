@@ -7,7 +7,7 @@ const params = {
     AttributeDefinitions: [
         {   //Partition Key Type
             AttributeName: "id", 
-            AttributeType: "N", 
+            AttributeType: "S", 
         },
         // {   //Sort Key Type
         //     AttributeName: "owner",
