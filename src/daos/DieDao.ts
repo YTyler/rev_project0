@@ -1,6 +1,6 @@
 import { DieIF } from '../entities/Die';
 import { ddbDocClient } from "../../db/ddbDocClient";
-import { GetCommand, PutCommand,  ServiceOutputTypes } from '@aws-sdk/lib-dynamodb';
+import { GetCommand, PutCommand, DeleteCommand, ServiceOutputTypes } from '@aws-sdk/lib-dynamodb';
 
 
 export interface DieDaoIF {
@@ -8,7 +8,7 @@ export interface DieDaoIF {
     getOne: (id: number) => Promise<ServiceOutputTypes | null>;
     add: (body: DieIF) => Promise<void>;
     // update: (id_value:number, die: DieIF) => Promise<void>;
-    delete: (id: string) => Promise<void>;
+    delete: (id: number) => Promise<void>;
 }
 
 export default class DieDao implements DieDaoIF {
@@ -21,7 +21,6 @@ export default class DieDao implements DieDaoIF {
 
     //GET (read) a single die based on its id
     public async getOne(id_value: number): Promise<ServiceOutputTypes | null> {
-        // Set the Command parameters
         const params = {
             TableName: this.TABLE_NAME,
             Key: {
@@ -72,8 +71,19 @@ export default class DieDao implements DieDaoIF {
     // }
 
     //DELETE a die
-    public async delete(id: string): Promise<void> {
-        // TODO
-        return Promise.resolve(undefined);
+    public async delete(id_value: number): Promise<void> {
+        const params = {
+            TableName: this.TABLE_NAME,
+            Key: {
+                id: id_value,
+            },
+        };
+        try {
+            const data = await ddbDocClient.send(new DeleteCommand(params));
+            console.log("Item Successfully Deleted");
+        } catch (err) {
+            console.log("Error", err);
+            return err;          
+        }
     }
 }
