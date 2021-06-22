@@ -6,6 +6,7 @@ const diceRouter = Router();
 diceRouter.get('/all', getDice);
 diceRouter.get('/:id', getDie);
 diceRouter.post('/', addDie);
+// diceRouter.put('/:id', updateDie)
 
 //baseRouter export
 const baseRouter = Router();

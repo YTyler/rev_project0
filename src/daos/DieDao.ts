@@ -6,8 +6,8 @@ import { GetCommand, PutCommand,  ServiceOutputTypes } from '@aws-sdk/lib-dynamo
 export interface DieDaoIF {
     getAll: () => Promise<DieIF[]>;
     getOne: (id: number) => Promise<ServiceOutputTypes | null>;
-    add: (die: DieIF) => Promise<void>;
-    update: (die: DieIF) => Promise<void>;
+    add: (body: DieIF) => Promise<void>;
+    // update: (id_value:number, die: DieIF) => Promise<void>;
     delete: (id: string) => Promise<void>;
 }
 
@@ -38,14 +38,14 @@ export default class DieDao implements DieDaoIF {
     }
 
     //POST (Create) a die
-    public async add(die: DieIF): Promise<void> {
+    public async add(body: DieIF): Promise<void> {
         const params = {
             TableName: this.TABLE_NAME,
             Item: {
-                id: die.id,
-                owner: die.owner,
-                rolls: die.rolls,
-                sides: die.sides,
+                id: body.id,
+                owner: body.owner,
+                rolls: body.rolls,
+                sides: body.sides,
             },
         };
         try {
@@ -56,11 +56,20 @@ export default class DieDao implements DieDaoIF {
         }
     }
 
-    //PUT (update) a die
-    public async update(die: DieIF): Promise<void> {
-        // TODO
-        return Promise.resolve(undefined);
-    }
+    // //PUT (update) a die
+    // public async update(id_value: number, body: DieIF): Promise<void> {
+    //     const die = this.getOne(id_value);
+    //     let conditionalUpdateExpression = `${}`;
+    //     (!body.id) ? 
+    //     const params = {
+    //         TableName: this.TABLE_NAME,
+    //         Key: {
+    //             id: id_value,
+    //         },
+    //         UpdateExpresssion:
+    //     };
+    //     return Promise.resolve(undefined);
+    // }
 
     //DELETE a die
     public async delete(id: string): Promise<void> {

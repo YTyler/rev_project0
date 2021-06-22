@@ -18,9 +18,21 @@ export async function addDie(req: Request, res: Response) {
     const die = req.body;
     if (!die) {
         return res.status(400).json({
-            error: 'One or more of the required parameters was missing.',
+            error: 'Nothing was sent',
         });
     }
     await dieDao.add(die);
     return res.status(201).end();
 }
+
+// export async function updateDie(req: Request, res: Response) {
+//     const id = params.id
+//     const die = req.body;
+//     if (!die) {
+//         return res.status(400).json({
+//             error: 'Nothing was sent,
+//         });
+//     }
+//     await dieDao.update(id, die);
+//     return res.status(200).end();
+// }
