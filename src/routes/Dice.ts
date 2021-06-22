@@ -17,13 +17,13 @@ export async function getDie(req: Request, res: Response) {
 }
 
 export async function addDie(req: Request, res: Response) {
-    const die = req.body;
-    if (!die) {
+    const body = req.body;
+    if (!body) {
         return res.status(400).json({
-            error: 'Nothing was sent',
+            error: 'Nothing was received',
         });
     }
-    await dieDao.add(die);
+    await dieDao.add(body);
     return res.status(201).end();
 }
 

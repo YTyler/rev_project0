@@ -12,8 +12,7 @@ export interface DieDaoIF {
 }
 
 export default class DieDao implements DieDaoIF {
-    private TABLE_NAME = "DICE_TABLE";
-
+    private TABLE_NAME = "PROJECT0_TABLE";
     public getAll(): Promise<DieIF[]> {
         
         return Promise.resolve([])
