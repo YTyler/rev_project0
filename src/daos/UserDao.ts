@@ -16,6 +16,7 @@ export default class UserDao implements UserDaoIF {
         const params = {
             TableName: this.TABLE_NAME,
             Key: {
+                type: "User",
                 id: id_value,
             },
         };
@@ -33,9 +34,10 @@ export default class UserDao implements UserDaoIF {
         const params = {
             TableName: this.TABLE_NAME,
             Item: {
+                type: "User",
                 id: body.id,
-                owner: body.name,
-                rolls: body.email,
+                name: body.name,
+                email: body.email,
             },
         };
         try {
@@ -50,6 +52,7 @@ export default class UserDao implements UserDaoIF {
         const params = {
             TableName: this.TABLE_NAME,
             Key: {
+                type: "User",
                 id: id_value,
             },
         };

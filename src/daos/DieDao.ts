@@ -23,6 +23,7 @@ export default class DieDao implements DieDaoIF {
         const params = {
             TableName: this.TABLE_NAME,
             Key: {
+                type: "Dice",
                 id: id_value,
             },
         };
@@ -40,6 +41,7 @@ export default class DieDao implements DieDaoIF {
         const params = {
             TableName: this.TABLE_NAME,
             Item: {
+                type: "Dice",
                 id: body.id,
                 owner: body.owner,
                 rolls: body.rolls,
@@ -74,6 +76,7 @@ export default class DieDao implements DieDaoIF {
         const params = {
             TableName: this.TABLE_NAME,
             Key: {
+                type: "Dice",
                 id: id_value,
             },
         };
