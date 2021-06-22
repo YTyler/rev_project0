@@ -29,7 +29,7 @@ export default class DieDao implements DieDaoIF {
         };
         try {
         const data = await ddbDocClient.send(new GetCommand(params));
-        console.log("Success", data);
+        console.log("Successfully Read", data);
         return data;
         } catch (err) {
             console.log(err);

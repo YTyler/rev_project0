@@ -22,7 +22,7 @@ export default class UserDao implements UserDaoIF {
         };
         try {
             const data = await ddbDocClient.send(new GetCommand(params));
-            console.log("Success", data);
+            console.log("Successfully Read", data);
             return data;
         } catch (err) {
             console.log(err);
