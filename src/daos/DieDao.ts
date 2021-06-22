@@ -1,11 +1,11 @@
 import { DieIF } from '../entities/Die';
-import { ddbClient } from "../../db/ddbClient";
-import { GetItemCommand, GetItemCommandInput, GetItemCommandOutput, PutItemCommand, PutItemCommandInput } from '@aws-sdk/client-dynamodb';
+import { ddbDocClient } from "../../db/ddbDocClient";
+import { GetCommand, PutCommand,  ServiceOutputTypes } from '@aws-sdk/lib-dynamodb';
 
 
 export interface DieDaoIF {
     getAll: () => Promise<DieIF[]>;
-    getOne: (id: string) => Promise<GetItemCommandOutput | null>;
+    getOne: (id: number) => Promise<ServiceOutputTypes | null>;
     add: (die: DieIF) => Promise<void>;
     update: (die: DieIF) => Promise<void>;
     delete: (id: string) => Promise<void>;
@@ -20,33 +20,37 @@ export default class DieDao implements DieDaoIF {
     }
 
     //GET (read) a single die based on its id
-    public async getOne(id: string): Promise<GetItemCommandOutput | null> {
+    public async getOne(id_value: number): Promise<ServiceOutputTypes | null> {
         // Set the Command parameters
-        const params: GetItemCommandInput = {
+        const params = {
             TableName: this.TABLE_NAME,
             Key: {
-                id: { N: id},
+                id: id_value,
             },
         };
-        const data = await ddbClient.send(new GetItemCommand(params));
-        console.log("Success", data.Item);
+        try {
+        const data = await ddbDocClient.send(new GetCommand(params));
+        console.log("Success", data);
         return data;
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     //POST (Create) a die
     public async add(die: DieIF): Promise<void> {
-        const params: PutItemCommandInput = {
+        const params = {
             TableName: this.TABLE_NAME,
             Item: {
-                id: {N: die.id.toString()},
-                owner: {S: die.owner},
-                rolls: {NS: die.rolls.map((e) => e.toString())},
-                sides: {S: die.sides},
+                id: die.id,
+                owner: die.owner,
+                rolls: die.rolls,
+                sides: die.sides,
             },
         };
         try {
-            const data = await ddbClient.send(new PutItemCommand(params));
-            console.log(data);
+            const data = await ddbDocClient.send(new PutCommand(params));
+            console.log("Item Added Successfully", data);
         } catch (err) {
             console.log(err);
         }

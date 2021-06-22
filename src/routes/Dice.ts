@@ -9,7 +9,7 @@ export async function getDice(req: Request, res: Response) {
 }
 
 export async function getDie(req: Request, res: Response) {
-    const id = req.params.id; 
+    const id = parseInt(req.params.id); 
     const die = await dieDao.getOne(id);
     return res.status(200).json({die});
 }
@@ -24,4 +24,3 @@ export async function addDie(req: Request, res: Response) {
     await dieDao.add(die);
     return res.status(201).end();
 }
-
