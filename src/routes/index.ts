@@ -15,7 +15,7 @@ const userRouter = Router();
 userRouter.get('/:id', getUser);
 userRouter.post('/', addUser);
 //INSERT UPDATE ROUTE
-userRouter.delete(':id', deleteUser)
+userRouter.delete('/:id', deleteUser)
 
 //baseRouter export
 const baseRouter = Router();
