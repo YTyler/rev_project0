@@ -1,6 +1,6 @@
 export interface DieIF {
     id: number;
-    owner: string;
+    owned_by: string;
     sides: string;
     rolls: number[];
 }
@@ -8,19 +8,19 @@ export interface DieIF {
 export default class Die implements DieIF {
 
     public id:number
-    public owner: string;
+    public owned_by: string;
     public sides: string;
     public rolls: number[];
 
-    constructor(sidesOrDie: DieIF | string, owner?: string, rolls?: number[], id?: number) {
+    constructor(sidesOrDie: DieIF | string, owned_by?: string, rolls?: number[], id?: number) {
         if (typeof sidesOrDie === 'string') {
             this.sides = sidesOrDie
-            this.owner = owner || '';
+            this.owned_by = owned_by || '';
             this.rolls = rolls || [];
             this.id = id || -1;
         } else {
             this.sides = sidesOrDie.sides;
-            this.owner = sidesOrDie.owner;
+            this.owned_by = sidesOrDie.owned_by;
             this.rolls = sidesOrDie.rolls;
             this.id = sidesOrDie.id;
         }

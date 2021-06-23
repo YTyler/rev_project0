@@ -12,9 +12,9 @@ export interface DieDaoIF {
 }
 
 export default class DieDao implements DieDaoIF {
-    private TABLE_NAME = "PROJECT0_TABLE";
+    private TABLE_NAME = "PROJECT0_TABLE"; //set name of dynamoDB table
     public getAll(): Promise<DieIF[]> {
-        
+        //TODO
         return Promise.resolve([])
     }
 
@@ -28,11 +28,12 @@ export default class DieDao implements DieDaoIF {
             },
         };
         try {
-        const data = await ddbDocClient.send(new GetCommand(params));
-        console.log("Successfully Read");
-        return data.Item as DieIF;
+            const data = await ddbDocClient.send(new GetCommand(params));
+            console.log("Successfully Read");
+            return data.Item as DieIF;
         } catch (err) {
             console.log(err);
+            return null;
         }
     }
 
@@ -43,7 +44,7 @@ export default class DieDao implements DieDaoIF {
             Item: {
                 type: "Dice",
                 id: body.id,
-                owner: body.owner,
+                owned_by: body.owned_by,
                 rolls: body.rolls,
                 sides: body.sides,
             },
@@ -58,25 +59,25 @@ export default class DieDao implements DieDaoIF {
 
     //PUT (update) info into the die
     public async updateOne(body: DieIF): Promise<void> {
-        //  //TODO
-        // try {
-        // const params = {
-        //     TableName: this.TABLE_NAME,
-        //     Key: {
-        //         type: "Dice",
-        //         id: id_value,
-        //     },
-        //     UpdateExpression: "set owner = :o, set rolls = :r",
-        //     ExpressionAttributeValues: {
-        //         ":r": rolls,
-        //     }
-        // }
-        
-        //     const data = await ddbDocClient.send(new UpdateCommand(params))
-        //     console.log("Rolls Updated", data);
-        // } catch (err) {
-        //     console.log("Error", err)
-        // }
+        const params = {
+            TableName: this.TABLE_NAME,
+            Key: {
+                type: "Dice",
+                id: body.id,
+            },
+            UpdateExpression: "SET owned_by = :o, rolls = :r, sides = :s",
+            ExpressionAttributeValues: {
+                ":o": body.owned_by,
+                ":r": body.rolls,
+                ":s": body.sides,
+            }
+        }
+        try {
+            const data = await ddbDocClient.send(new UpdateCommand(params))
+            console.log(`Succussfully Updated Die ${body.id}`, data);
+        } catch (err) {
+            console.log("Error", err)
+        }
     }
 
     //DELETE a die
@@ -90,7 +91,7 @@ export default class DieDao implements DieDaoIF {
         };
         try {
             const data = await ddbDocClient.send(new DeleteCommand(params));
-            console.log("Item Successfully Deleted");
+            console.log("Successfully Deleted Die", data);
         } catch (err) {
             console.log("Error", err);
             return err;          
