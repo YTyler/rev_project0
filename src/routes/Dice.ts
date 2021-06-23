@@ -24,6 +24,12 @@ export async function addDie(req: Request, res: Response) {
             error: 'Nothing was received',
         });
     }
+    const die = await dieDao.getOne(body.id);
+    if (die) {
+        return res.status(400).json({
+            error: 'Die already exists',
+        });
+    }
     await dieDao.add(body);
     return res.status(201).end();
 }
