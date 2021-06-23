@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { DieIF } from '../entities/Die';
 import DieDao from '../daos/DieDao'
 
 const dieDao = new DieDao(); //Instantiate dice dao 'data access object'
@@ -12,7 +13,7 @@ export async function getDice(req: Request, res: Response) {
 //GET a die from the table by id
 export async function getDie(req: Request, res: Response) {
     const id = parseInt(req.params.id); 
-    const die = await dieDao.getOne(id);
+    const die: DieIF = await dieDao.getOne(id);
     console.log(die);
     return res.status(200).json({die});
 }
@@ -27,8 +28,20 @@ export async function addDie(req: Request, res: Response) {
     await dieDao.add(body);
     return res.status(201).end();
 }
-//PUT more rolls into a die
-
+//PUT info into a die
+export async function updateDie(req: Request, res: Response) {
+//     //TODO
+//     const body:DieIF = req.body;
+//     if (!body) {
+//         return res.status(400).json({
+//             error: 'Nothing was received',
+//         });
+//     }
+//     const die = await dieDao.getOne(body.id);
+//     //TODO
+//     await dieDao.updateOne(body);
+//     return res.status(200).end();
+}
 
 //DELETE a die by id
 export async function deleteDie(req: Request, res: Response) {
